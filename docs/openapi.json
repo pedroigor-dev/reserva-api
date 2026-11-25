@@ -1,0 +1,267 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "HealthController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/products": {
+      "post": {
+        "operationId": "InventoryController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProduct"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "api-key": []
+          }
+        ],
+        "tags": [
+          "Estoque e reservas"
+        ]
+      }
+    },
+    "/products/{sku}": {
+      "get": {
+        "operationId": "InventoryController_stock",
+        "parameters": [
+          {
+            "name": "sku",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "api-key": []
+          }
+        ],
+        "tags": [
+          "Estoque e reservas"
+        ]
+      }
+    },
+    "/holds": {
+      "post": {
+        "operationId": "InventoryController_hold",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateHold"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "api-key": []
+          }
+        ],
+        "tags": [
+          "Estoque e reservas"
+        ]
+      }
+    },
+    "/holds/{id}/confirm": {
+      "post": {
+        "operationId": "InventoryController_confirm",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "api-key": []
+          }
+        ],
+        "tags": [
+          "Estoque e reservas"
+        ]
+      }
+    },
+    "/holds/{id}/cancel": {
+      "post": {
+        "operationId": "InventoryController_cancel",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "api-key": []
+          }
+        ],
+        "tags": [
+          "Estoque e reservas"
+        ]
+      }
+    },
+    "/holds/{id}/audit": {
+      "get": {
+        "operationId": "InventoryController_audit",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "api-key": []
+          }
+        ],
+        "tags": [
+          "Estoque e reservas"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "reserva-api",
+    "description": "",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "api-key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Api-Key"
+      },
+      "bootstrap": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Bootstrap-Key"
+      },
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CreateProduct": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "example": "CAMISA-BAHIA-M"
+          },
+          "stock": {
+            "type": "number",
+            "example": 10
+          }
+        },
+        "required": [
+          "sku",
+          "stock"
+        ]
+      },
+      "CreateHold": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "example": "CAMISA-BAHIA-M"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 2
+          },
+          "ttlSeconds": {
+            "type": "number",
+            "example": 300,
+            "maximum": 3600
+          }
+        },
+        "required": [
+          "sku",
+          "quantity",
+          "ttlSeconds"
+        ]
+      }
+    }
+  }
+}

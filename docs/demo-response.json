@@ -1,0 +1,25 @@
+{
+  "hold": {
+    "id": "0ea140a5-ba58-4886-a9b8-f8ac3ac75fd8",
+    "sku": "DEMO-5988eb55-9258-457f-803b-31066fc5463f",
+    "quantity": 3,
+    "state": "active",
+    "expiresAt": "2026-11-25T00:13:28.238Z"
+  },
+  "afterConfirmation": {
+    "sku": "DEMO-5988eb55-9258-457f-803b-31066fc5463f",
+    "stock": 7,
+    "reserved": 0,
+    "available": 7
+  },
+  "audit": [
+    {
+      "action": "reserved",
+      "at": 1795565308238
+    },
+    {
+      "action": "confirmed",
+      "at": 1795565308250
+    }
+  ]
+}
