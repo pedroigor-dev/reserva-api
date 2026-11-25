@@ -39,6 +39,8 @@ A transação `BEGIN IMMEDIATE` serializa a verificação de disponibilidade e a
 Requer Node.js 24+ e npm. O SQLite usa o módulo nativo do Node, sem instalação de banco ou chave de serviço externo.
 
 ```powershell
+git clone https://github.com/pedroigor-dev/reserva-api.git
+cd reserva-api
 npm ci
 npm run setup
 npm run build
